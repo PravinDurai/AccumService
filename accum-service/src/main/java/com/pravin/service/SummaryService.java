@@ -30,10 +30,11 @@ public class SummaryService {
 		if(summary == null) {
 			summary = new Summary();
 			summary.setUsername(username);
-			summary.setSpecialServiceUsedCount(0l);
+			summary.setSpecialServiceUsedCount(plan.getSpecialServiceCount());
 			summary.setCoinsuranceTotal(0);
 			summary.setDeductibleTotal(plan.getDeductible());
 			summary.setInsuranceCompanyTotal(0);
+			summary.setBenefitPlanId(plan.getId());
 		}
 		if(plan.getCoInsurance() > 0) {
 			if(plan.getDeductible() > 0) {
@@ -62,7 +63,7 @@ public class SummaryService {
 			summary.setDeductibleTotal(plan.getDeductible());
 			summary.setInsuranceCompanyTotal(0);
 		}
-		summary.setSpecialServiceUsedCount(summary.getSpecialServiceUsedCount() + count);
+		summary.setSpecialServiceUsedCount(summary.getSpecialServiceUsedCount() - count);
 		repo.save(summary);
 	}
 }
